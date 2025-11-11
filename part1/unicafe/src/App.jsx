@@ -6,6 +6,10 @@ const Button = (props) => (
   </button>
 )
 
+const StatisticLine = (props) =>(
+  <p>{props.text} {props.value}</p>
+)
+
 const Statistics = (props) => {
   if(props.good==0 & props.bad==0 & props.neutral==0){
     return(
@@ -19,11 +23,11 @@ const Statistics = (props) => {
     return(
       <>
         <h1>statistics</h1>
-        <p>good {props.good}</p> 
-        <p>neutral {props.neutral}</p> 
-        <p>bad {props.bad}</p> 
-        <p>average {props.avg}</p>
-        <p>positive {props.perc}%</p>
+        <StatisticLine text="good" value={props.good}/>
+        <StatisticLine text="neutral" value={props.neutral}/>
+        <StatisticLine text="bad" value={props.bad}/>
+        <StatisticLine text="average" value={props.avg}/>
+        <StatisticLine text="percentage" value={props.perc}/>
       </>
     )
   }
@@ -41,14 +45,14 @@ const App = () => {
     const total = updGood + neutral + bad
     setGood(updGood)
     setAvg((updGood-bad)/total)
-    setPerc(100*updGood/total)
+    setPerc(100*updGood/total+'%')
   } 
   const handleNeutral = () => {
     const updNeutral= neutral+1
     const total = good + updNeutral + bad
     setNeutral(updNeutral)
     setAvg((good-bad)/total)
-    setPerc(100*good/total)
+    setPerc(100*good/total+'%')
 
   }
   const handleBad = () => {
@@ -56,7 +60,7 @@ const App = () => {
     const total = good + neutral + updBad
     setBad(updBad)
     setAvg((good-updBad)/total)
-    setPerc(100*good/total)
+    setPerc(100*good/total+'%')
 
   }
   return (
